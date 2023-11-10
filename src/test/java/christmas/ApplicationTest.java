@@ -23,8 +23,9 @@ class ApplicationTest extends NsTest {
     private static final String ERROR_MESSAGE = "[ERROR]";
 
     @ParameterizedTest
-    @ValueSource(strings = {"해산물파스타-","레드와인- ","초코케이크--1"})
+    @ValueSource(strings = {"해산물파스타-","레드와인- ","초코케이크--1","해산물파스타-1,해산물파스타-2","감자-10","레드와인-1,제로콜라-5,샴페인-1","해산물파스타-10,초코케이크-11"})
     void 주문_입력_검증_테스트(String item) {
+        Menu menu = new Menu();
         assertThatThrownBy(() -> InputView.setOrder(item))
                 .isInstanceOf(IllegalArgumentException.class).hasMessage(Exception.MENU_ERROR);
     }
