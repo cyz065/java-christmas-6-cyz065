@@ -22,6 +22,10 @@ public enum Food {
         return category;
     }
 
+    public String getName() {
+        return name;
+    }
+
 
     public static List<String> getFoodsByCategory(String category) {
         List<String> foods = new ArrayList<>();
