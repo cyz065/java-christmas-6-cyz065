@@ -40,4 +40,8 @@ public class Menu {
         }
         return false;
     }
+
+    public static String getItemCategory(String name) {
+        return itemWithCategory.get(name);
+    }
 }
