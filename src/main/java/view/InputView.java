@@ -69,7 +69,7 @@ public class InputView {
     private static void checkInputOrder(String[] pair) throws IllegalArgumentException {
         try {
             checkLength(pair);
-            checkItem(pair[0]);
+            //checkItem(pair[0]);
             checkCount(pair[1]);
 
         } catch (IllegalArgumentException exception) {
@@ -83,17 +83,16 @@ public class InputView {
         }
     }
 
+    /*
     private static void checkItem(String item) throws IllegalArgumentException {
         if (!Menu.containsItem(item)) {
             throw new IllegalArgumentException(Exception.MENU_ERROR);
         }
-    }
+    }*/
 
-    private static int checkCount(String input) throws IllegalArgumentException {
+    private static void checkCount(String input) throws IllegalArgumentException {
         int count = checkValid(input);
         checkRange(count);
-
-        return count;
     }
 
     private static int checkValid(String input) throws IllegalArgumentException {
