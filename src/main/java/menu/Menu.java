@@ -6,13 +6,15 @@ import java.util.Map;
 
 public class Menu {
 
-    private Map<String, List<String>> menu;
+    private static Map<String, List<String>> menu;
+    private static Map<String, String> itemWithCategory;
 
     public Menu() {
-        menu = setMenu();
+        menu = setMenuByCategory();
+        itemWithCategory = setMenuByItem();
     }
 
-    public static Map<String, List<String>> setMenu() {
+    public static Map<String, List<String>> setMenuByCategory() {
         Map<String, List<String>> menu = new HashMap<>();
 
         for (Food food : Food.values()) {
@@ -20,5 +22,22 @@ public class Menu {
         }
 
         return menu;
+    }
+
+    public static Map<String, String> setMenuByItem() {
+        Map<String, String> menu = new HashMap<>();
+
+        for (Food food : Food.values()) {
+            menu.put(food.getName(), food.getCategory());
+        }
+
+        return menu;
+    }
+
+    public static boolean containsItem(String item) {
+        if (itemWithCategory.getOrDefault(item, null) != null) {
+            return true;
+        }
+        return false;
     }
 }
