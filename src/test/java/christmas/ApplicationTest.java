@@ -2,6 +2,7 @@ package christmas;
 
 import static camp.nextstep.edu.missionutils.test.Assertions.assertSimpleTest;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import camp.nextstep.edu.missionutils.test.NsTest;
 import java.util.ArrayList;
@@ -12,9 +13,18 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
+import org.junit.jupiter.params.provider.ValueSource;
+import view.InputView;
 
 class ApplicationTest extends NsTest {
     private static final String LINE_SEPARATOR = System.lineSeparator();
+    private static final String ERROR_MESSAGE = "[ERROR]";
+    @ParameterizedTest
+    @ValueSource(strings = {"-1", "32", "test", "1a"})
+    void 날짜_입력_에러_테스트(String day) {
+        assertThatThrownBy(() -> InputView.setDay(day))
+                .isInstanceOf(IllegalArgumentException.class).hasMessageContaining(ERROR_MESSAGE);
+    }
 
     @ParameterizedTest
     @CsvSource(value = {"애피타이저:타파스,양송이수프,시저샐러드", "메인:해산물파스타,티본스테이크,크리스마스파스타,바비큐립"
