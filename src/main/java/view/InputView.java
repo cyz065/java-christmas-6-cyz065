@@ -97,7 +97,7 @@ public class InputView {
         }
     }
 
-    private static void checkTotalCount(Map<String, Integer> order) {
+    private static void checkTotalCount(Map<String, Integer> order) throws IllegalArgumentException {
         int total = 0;
         for (String item : order.keySet()) {
             total += order.get(item);
