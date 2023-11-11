@@ -12,6 +12,10 @@ public class Constant {
     public static final String PRINT_ORDER = "<주문 메뉴>";
     public static final int TARGET_PRICE = 10_000;
     public static final int DAY_DISCOUNT = 2_023;
+    public static final int CHRISTMAS = 25;
+    public static final int SPECIAL_DISCOUNT = 1000;
+    public static final int CHRISTMAS_DISCOUNT = 100;
+    public static final int NO_DISCOUNT = 0;
 
 
 
