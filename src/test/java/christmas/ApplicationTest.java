@@ -6,6 +6,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 
 import camp.nextstep.edu.missionutils.test.NsTest;
 import constant.Exception;
+import event.Day;
+import event.Discount;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -23,13 +25,26 @@ import view.InputView;
 class ApplicationTest extends NsTest {
     private static final String LINE_SEPARATOR = System.lineSeparator();
     private static final String ERROR_MESSAGE = "[ERROR]";
-
     @ParameterizedTest
-    @CsvSource(value = {"양송이수프-1:false", "아이스크림-2:true"}, delimiter = ':')
+    @CsvSource(value = {"양송이수프-1,티본스테이크-1:0","초코케이크-1:2023","초코케이크-1,아이스크림-1:4046"}, delimiter = ':')
+    void 평일_할인_가격_테스트(String input, int price) {
+        Menu menu = new Menu();
+        Order order = new Order(InputView.setOrder(input));
+        Discount discount = new Discount(order.isEventTarget(), Day.THURSDAY.getDayValue());
+        assertThat(discount.weekDayDiscount(order)).isEqualTo(price);
+    }
+    @ParameterizedTest
+    @CsvSource(value = {"1:1000", "10:1900", "25:3400", "31:0"}, delimiter = ':')
+    void 크리스마스_디데이_할인_가격_테스트(int day, int price) {
+        Discount discount = new Discount(true, day);
+        assertThat(discount.christMasDiscount()).isEqualTo(price);
+    }
+    @ParameterizedTest
+    @CsvSource(value = {"양송이수프-1:false", "아이스크림-2:true", "초코케이크-1:true"}, delimiter = ':')
     void 이벤트_적용_대상_테스트(String input, boolean check) {
         Menu menu = new Menu();
         Order order = new Order(InputView.setOrder(input));
-        assertThat(order.isEventTarget(order.getTotalPriceBeforeDisCount())).isEqualTo(check);
+        assertThat(order.isEventTarget()).isEqualTo(check);
     }
 
     @ParameterizedTest
