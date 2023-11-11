@@ -9,8 +9,10 @@ import constant.Exception;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 import menu.Food;
 import menu.Menu;
+import order.Order;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
@@ -22,6 +24,21 @@ class ApplicationTest extends NsTest {
     private static final String LINE_SEPARATOR = System.lineSeparator();
     private static final String ERROR_MESSAGE = "[ERROR]";
 
+    @ParameterizedTest
+    @CsvSource(value = {"양송이수프-1:false", "아이스크림-2:true"}, delimiter = ':')
+    void 이벤트_적용_대상_테스트(String input, boolean check) {
+        Menu menu = new Menu();
+        Order order = new Order(InputView.setOrder(input));
+        assertThat(order.isEventTarget(order.getTotalPriceBeforeDisCount())).isEqualTo(check);
+    }
+
+    @ParameterizedTest
+    @CsvSource(value = {"타파스-1,제로콜라-1:8500", "양송이수프-2,초코케이크-1:27000"}, delimiter = ':')
+    void 할인_전_총주문_금액_테스트(String input, int price) {
+        Menu menu = new Menu();
+        Order order = new Order(InputView.setOrder(input));
+        assertThat(order.getTotalPriceBeforeDisCount()).isEqualTo(price);
+    }
     @ParameterizedTest
     @ValueSource(strings = {"해산물파스타-","레드와인- ","초코케이크--1","해산물파스타-1,해산물파스타-2","감자-10","레드와인-1,제로콜라-5,샴페인-1","해산물파스타-10,초코케이크-11"})
     void 주문_입력_검증_테스트(String item) {
