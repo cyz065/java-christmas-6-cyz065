@@ -41,7 +41,7 @@ public class Order {
         int count = 0;
         for (String item : order.keySet()) {
             if (Menu.getItemCategory(item).equals(category)) {
-                count += 1;
+                count += order.get(item);
             }
         }
 
