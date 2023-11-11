@@ -48,4 +48,13 @@ public class Order {
         return count;
     }
 
+    public boolean checkGiftTarget() {
+        if (getTotalPriceBeforeDisCount() >= Constant.GIFT_TARGET_PRICE) {
+            int champagneCount = order.getOrDefault(Food.CHAMPAGNE.getName(), 0);
+            order.put(Food.CHAMPAGNE.getName(), champagneCount + 1);
+            return true;
+        }
+        return false;
+    }
+
 }
