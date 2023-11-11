@@ -25,6 +25,15 @@ import view.InputView;
 class ApplicationTest extends NsTest {
     private static final String LINE_SEPARATOR = System.lineSeparator();
     private static final String ERROR_MESSAGE = "[ERROR]";
+
+    @ParameterizedTest
+    @CsvSource(value = {"양송이수프-1,티본스테이크-1:2023", "양송이수프-1:0", "티본스테이크-2,바비큐립-1:6069"}, delimiter = ':')
+    void 주말_할인_가격_테스트(String input, int price) {
+        Menu menu = new Menu();
+        Order order = new Order(InputView.setOrder(input));
+        Discount discount = new Discount(order.isEventTarget(), Day.FRIDAY.getDayValue());
+        assertThat(discount.weekEndDiscount(order)).isEqualTo(price);
+    }
     @ParameterizedTest
     @CsvSource(value = {"양송이수프-1,티본스테이크-1:0","초코케이크-1:2023","초코케이크-1,아이스크림-1:4046"}, delimiter = ':')
     void 평일_할인_가격_테스트(String input, int price) {
