@@ -27,6 +27,14 @@ class ApplicationTest extends NsTest {
     private static final String ERROR_MESSAGE = "[ERROR]";
 
     @ParameterizedTest
+    @CsvSource(value = {"28:4046", "30:2023", "22:5123", "24:8346"}, delimiter = ':')
+    void 전체_할인_가격_테스트(int day, int price) {
+        Menu menu = new Menu();
+        Order order = new Order(InputView.setOrder("양송이수프-1,티본스테이크-1,초코케이크-2"));
+        Discount discount = new Discount(order.isEventTarget(), day);
+        assertThat(discount.getTotalDiscount(order)).isEqualTo(price);
+    }
+    @ParameterizedTest
     @CsvSource(value = {"양송이수프-1,티본스테이크-1:1000", "양송이수프-1:0", "티본스테이크-2,바비큐립-1:1000"}, delimiter = ':')
     void 특별_할인_가격_테스트(String input, int price) {
         Menu menu = new Menu();
