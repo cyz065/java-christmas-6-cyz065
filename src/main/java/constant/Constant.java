@@ -16,6 +16,7 @@ public class Constant {
     public static final int SPECIAL_DISCOUNT = 1000;
     public static final int CHRISTMAS_DISCOUNT = 100;
     public static final int NO_DISCOUNT = 0;
+    public static final int GIFT_TARGET_PRICE = 120_000;
 
 
 
