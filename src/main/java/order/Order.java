@@ -28,9 +28,9 @@ public class Order {
         return false;
     }
 
-    public boolean isContainsDessert() {
+    public boolean hasCategoryItem(String category) {
         for (String item : order.keySet()) {
-            if (Menu.getItemCategory(item).equals(Constant.DESSERT)) {
+            if (Menu.getItemCategory(item).equals(category)) {
                 return true;
             }
         }
