@@ -34,17 +34,20 @@ public class Simulation {
 
     private void showResult() {
         OutputView.printPreview(day);
+        showOrderInfo();
+        showEventHistory();
+    }
 
+    private void showOrderInfo() {
         order.showOrderHistory();
         order.showTotalPriceBeforeDiscount();
         order.showGift();
+    }
 
+    private void showEventHistory() {
         discount.showBenefitHistory();
         discount.showTotalBenefit();
         discount.showExpectedPrice();
         discount.showEventBadge();
     }
-
-
-
 }
