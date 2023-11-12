@@ -12,8 +12,8 @@ public class OutputView {
         System.out.println(Constant.TITLE);
     }
 
-    public static void printPreview() {
-        System.out.println(Constant.EVENT_PREVIEW);
+    public static void printPreview(int day) {
+        System.out.println(Constant.EVENT_MONTH + "월 " + day + Constant.EVENT_PREVIEW);
         System.out.println();
     }
 
@@ -67,6 +67,6 @@ public class OutputView {
 
     public static void printEventBadge(String badge) {
         System.out.println(Constant.EVENT_BADGE);
-        System.out.println(badge);
+        System.out.print(badge);
     }
 }
