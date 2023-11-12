@@ -10,9 +10,9 @@ public enum Food {
     CHOCOLATE_CAKE(Constant.DESSERT,"초코케이크", 15_000), ICE_CREAM(Constant.DESSERT,"아이스크림", 5_000),
     ZERO_COKE(Constant.DRINK,"제로콜라", 3_000), RED_WINE(Constant.DRINK,"레드와인", 60_000), CHAMPAGNE(Constant.DRINK,"샴페인", 25_000);
 
-    private String category;
-    private String name;
-    private int price;
+    private final String category;
+    private final String name;
+    private final int price;
     Food(String category, String name, int price) {
         this.category = category;
         this.name = name;
@@ -27,6 +27,9 @@ public enum Food {
         return name;
     }
 
+    public int getPrice() {
+        return price;
+    }
 
     public static List<String> getFoodsByCategory(String category) {
         List<String> foods = new ArrayList<>();
