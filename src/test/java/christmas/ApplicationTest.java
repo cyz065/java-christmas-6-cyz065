@@ -38,15 +38,15 @@ class ApplicationTest extends NsTest {
     void 전체_할인_가격_테스트(int day, int price) {
         Menu menu = new Menu();
         Order order = new Order(InputView.setOrder("양송이수프-1,티본스테이크-1,초코케이크-2"));
-        Discount discount = new Discount(order.isEventTarget(), day);
-        assertThat(discount.getTotalDiscount(order)).isEqualTo(price);
+        Discount discount = new Discount(order.isEventTarget(), day, order);
+        assertThat(discount.getTotalDiscount()).isEqualTo(price);
     }
     @ParameterizedTest
     @CsvSource(value = {"양송이수프-1,티본스테이크-1:1000", "양송이수프-1:0", "티본스테이크-2,바비큐립-1:1000"}, delimiter = ':')
     void 특별_할인_가격_테스트(String input, int price) {
         Menu menu = new Menu();
         Order order = new Order(InputView.setOrder(input));
-        Discount discount = new Discount(order.isEventTarget(), Day.SUNDAY.getDayValue());
+        Discount discount = new Discount(order.isEventTarget(), Day.SUNDAY.getDayValue(), order);
         assertThat(discount.specialDiscount()).isEqualTo(price);
     }
     @ParameterizedTest
@@ -54,21 +54,23 @@ class ApplicationTest extends NsTest {
     void 주말_할인_가격_테스트(String input, int price) {
         Menu menu = new Menu();
         Order order = new Order(InputView.setOrder(input));
-        Discount discount = new Discount(order.isEventTarget(), Day.FRIDAY.getDayValue());
-        assertThat(discount.weekEndDiscount(order)).isEqualTo(price);
+        Discount discount = new Discount(order.isEventTarget(), Day.FRIDAY.getDayValue(), order);
+        assertThat(discount.weekEndDiscount()).isEqualTo(price);
     }
     @ParameterizedTest
     @CsvSource(value = {"양송이수프-1,티본스테이크-1:0","초코케이크-1:2023","초코케이크-1,아이스크림-1:4046"}, delimiter = ':')
     void 평일_할인_가격_테스트(String input, int price) {
         Menu menu = new Menu();
         Order order = new Order(InputView.setOrder(input));
-        Discount discount = new Discount(order.isEventTarget(), Day.THURSDAY.getDayValue());
-        assertThat(discount.weekDayDiscount(order)).isEqualTo(price);
+        Discount discount = new Discount(order.isEventTarget(), Day.THURSDAY.getDayValue(), order);
+        assertThat(discount.weekDayDiscount()).isEqualTo(price);
     }
     @ParameterizedTest
     @CsvSource(value = {"1:1000", "10:1900", "25:3400", "31:0"}, delimiter = ':')
     void 크리스마스_디데이_할인_가격_테스트(int day, int price) {
-        Discount discount = new Discount(true, day);
+        Menu menu = new Menu();
+        Order order = new Order(InputView.setOrder("양송이수프-1,티본스테이크-1"));
+        Discount discount = new Discount(true, day, order);
         assertThat(discount.christMasDiscount()).isEqualTo(price);
     }
     @ParameterizedTest
