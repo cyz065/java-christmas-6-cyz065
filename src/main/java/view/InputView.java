@@ -16,6 +16,8 @@ public class InputView {
     public static int inputDay() {
         while (true) {
             try {
+                OutputView.printTitle();
+                System.out.println(Constant.INPUT_DAY);
                 return setDay(Console.readLine());
             } catch (IllegalArgumentException exception) {
                 System.out.println(exception.getMessage());
@@ -26,6 +28,7 @@ public class InputView {
     public static Map<String, Integer> inputOrder() {
         while (true) {
             try {
+                System.out.println(Constant.INPUT_ORDER);
                 return setOrder(Console.readLine());
             } catch (IllegalArgumentException exception) {
                 System.out.println(exception.getMessage());
@@ -39,13 +42,13 @@ public class InputView {
             checkDay(day);
             return day;
         } catch (NumberFormatException exception) {
-            throw new IllegalArgumentException(Exception.DAY_FORMAT_ERROR);
+            throw new IllegalArgumentException(Exception.DAY_ERROR);
         }
     }
 
     private static void checkDay(int day) throws IllegalArgumentException {
         if (day < 1 || day > 31) {
-            throw new IllegalArgumentException(Exception.DAY_RANGE_ERROR);
+            throw new IllegalArgumentException(Exception.DAY_ERROR);
         }
     }
 
