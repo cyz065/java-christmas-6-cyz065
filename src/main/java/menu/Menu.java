@@ -6,16 +6,15 @@ import java.util.Map;
 
 public class Menu {
 
-    private static Map<String, List<String>> menu;
     private static Map<String, String> itemWithCategory;
 
     public Menu() {
-        menu = setMenuByCategory();
+        Map<String, List<String>> menu = setMenuByCategory();
         itemWithCategory = setMenuByItem();
     }
 
     // 카테고리별 음식들 나열 ex) 애피타이저 = [양송이수프, 타파스, 시저샐러드]
-    public static Map<String, List<String>> setMenuByCategory() {
+    private Map<String, List<String>> setMenuByCategory() {
         Map<String, List<String>> menu = new HashMap<>();
 
         for (Food food : Food.values()) {
@@ -26,7 +25,7 @@ public class Menu {
     }
 
     // 음식 별 카테고리 나열 ex) 양송이수프 - 애피타이저, 티본스테이크 - 메인
-    public static Map<String, String> setMenuByItem() {
+    private Map<String, String> setMenuByItem() {
         Map<String, String> menu = new HashMap<>();
 
         for (Food food : Food.values()) {
