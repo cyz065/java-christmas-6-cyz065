@@ -4,9 +4,7 @@ import constant.Constant;
 import java.util.HashMap;
 import java.util.Map;
 import menu.Food;
-import menu.Menu;
 import order.Order;
-import view.OutputView;
 
 public class Discount {
     private final boolean isEventTarget;
@@ -42,6 +40,7 @@ public class Discount {
                 count = order.getItemCount(Constant.DESSERT);
             }
         }
+
         return count * Constant.DAY_DISCOUNT;
     }
 
@@ -91,7 +90,6 @@ public class Discount {
 
     public int getTotalDiscount() {
         int total = 0;
-
         total += christMasDiscount();
         total += weekDayDiscount();
         total += weekEndDiscount();
@@ -100,44 +98,24 @@ public class Discount {
         return total;
     }
 
-    public void showBenefitHistory() {
-        Map<String, Integer> discount = new HashMap<>();
-
-        discount.put(Constant.CHRISTMAS_D_DAY, christMasDiscount() * (-1));
-        discount.put(Constant.WEEKEND, weekEndDiscount() * (-1));
-        discount.put(Constant.WEEKDAY, weekDayDiscount() * (-1));
-        discount.put(Constant.SPECIAL, specialDiscount() * (-1));
+    public Map<String, Integer> makeBenefitHistory() {
+        Map<String, Integer> discountHistory = setDiscountHistory();
+        discountHistory.values().removeIf(price -> price == 0);
 
         if (order.checkGiftTarget()) {
-            discount.put(Constant.GIFT_EVENT, Food.CHAMPAGNE.getPrice() * (-1));
+            discountHistory.put(Constant.GIFT_EVENT, Food.CHAMPAGNE.getPrice() * (-1));
         }
-        OutputView.printBenefitHistory(discount);
+
+        return discountHistory;
     }
 
-    public void showTotalBenefit() {
-        int amount = getTotalDiscount();
-        if (order.checkGiftTarget()) {
-            amount += Food.CHAMPAGNE.getPrice();
-        }
-        OutputView.printTotalBenefit(amount * (-1));
-    }
+    public Map<String, Integer> setDiscountHistory() {
+        Map<String, Integer> discountHistory = new HashMap<>();
+        discountHistory.put(Constant.CHRISTMAS_D_DAY, christMasDiscount() * (-1));
+        discountHistory.put(Constant.WEEKEND, weekEndDiscount() * (-1));
+        discountHistory.put(Constant.WEEKDAY, weekDayDiscount() * (-1));
+        discountHistory.put(Constant.SPECIAL, specialDiscount() * (-1));
 
-    public void showExpectedPrice() {
-        OutputView.printExpectedPrice(order.getTotalPriceBeforeDisCount() - getTotalDiscount());
-    }
-
-    public void showEventBadge() {
-        int total = getTotalDiscount();
-
-        if (order.checkGiftTarget()) {
-            total += 25000;
-        }
-
-        for (Badge badge : Badge.values()) {
-            if (total >= badge.getAmount()) {
-                OutputView.printEventBadge(badge.getBadgeName());
-                break;
-            }
-        }
+        return discountHistory;
     }
 }
