@@ -39,15 +39,15 @@ public class Simulation {
     }
 
     private void showOrderInfo() {
-        order.showOrderHistory();
-        order.showTotalPriceBeforeDiscount();
-        order.showGift();
+        OutputView.printMenu(order);
+        OutputView.printTotalPriceBeforeDiscount(order);
+        OutputView.printGift(order);
     }
 
     private void showEventHistory() {
-        discount.showBenefitHistory();
-        discount.showTotalBenefit();
-        discount.showExpectedPrice();
-        discount.showEventBadge();
+        OutputView.printBenefitHistory(discount);
+        OutputView.printTotalBenefit(order, discount);
+        OutputView.printExpectedPrice(order, discount);
+        OutputView.printEventBadge(order, discount);
     }
 }
