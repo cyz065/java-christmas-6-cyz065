@@ -5,6 +5,7 @@ public enum Day {
     TUESDAY(5), WEDNESDAY(6), THURSDAY(0);
 
     private final int value;
+
     Day(int value) {
         this.value = value;
     }
