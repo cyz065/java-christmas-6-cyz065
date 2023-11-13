@@ -2,9 +2,9 @@ package order;
 
 import constant.Constant;
 import java.util.Map;
+
 import menu.Food;
 import menu.Menu;
-import view.OutputView;
 
 public class Order {
     private final Map<String, Integer> order;
@@ -28,6 +28,7 @@ public class Order {
         if (total >= Constant.TARGET_PRICE) {
             return true;
         }
+
         return false;
     }
 
@@ -37,6 +38,7 @@ public class Order {
                 return true;
             }
         }
+
         return false;
     }
 
@@ -55,23 +57,11 @@ public class Order {
         if (total >= Constant.GIFT_TARGET_PRICE) {
             return true;
         }
+
         return false;
     }
 
-    public void showOrderHistory() {
-        OutputView.printMenu(order);
-    }
-
-    public void showTotalPriceBeforeDiscount() {
-        OutputView.printTotalPriceBeforeDiscount(total);
-    }
-
-    public void showGift() {
-        if (checkGiftTarget()) {
-            OutputView.printGift(Constant.GIFT);
-            return;
-        }
-
-        OutputView.printGift(Constant.NOTHING);
+    public Map<String, Integer> getOrderHistory() {
+        return order;
     }
 }
